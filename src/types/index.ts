@@ -3,9 +3,7 @@ export interface LogoutOptions {
   keyName?: string
   stagnateTime?: number
   detectTime?: number
+  clearAll?: boolean
 }
 
-export interface Target {
-  el: HTMLElement | Window
-  ref: number
-}
+export type CacheType = 'Cookie' | 'LocalStorage' | 'SessionStorage'

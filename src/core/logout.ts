@@ -1,19 +1,21 @@
-import Cookies from 'js-cookie'
 import { LogoutOptions } from '../types'
-
-const LAST_TIME = 'logout_last_time'
+import Cache from './cache'
 
 export default class Logout {
   keyName: string
   enable: boolean
   stagnateTime: number
   detectTime: number
+  clearAll: boolean
+  cache: any
 
   constructor(options: LogoutOptions) {
     this.keyName = options.keyName || 'token'
     this.enable = options.enable || true
     this.stagnateTime = options.stagnateTime || 30 * 60 * 1000
     this.detectTime = options.detectTime || 10 * 1000
+    this.clearAll = options.clearAll || true
+    this.cache = new Cache(this.keyName)
     this.init()
   }
 
@@ -24,15 +26,14 @@ export default class Logout {
   detect(): void {
     if (this.enable) {
       const currentTime = new Date().getTime() // 记录这次点击的时间
-      const lastTime = Number(Cookies.get(LAST_TIME))
-      // 判断上次最后一次点击的时间和这次点击的时间间隔是否大于30分钟
+      const cache = this.cache
+      const lastTime = cache.getCacheTime.apply(cache)
+      // 判断上次最后一次点击的时间和这次点击的时间间隔是否设定停滞时间
       if (currentTime - lastTime > this.stagnateTime) {
-        const hasLogin = Cookies.get(this.keyName)
+        const hasLogin = cache.hasLogin.apply(cache)
         // 如果是登录状态，退出登录
-        if (hasLogin !== undefined) {
-          Cookies.remove(this.keyName)
-          const { origin } = window.location
-          window.location.href = origin
+        if (hasLogin) {
+          cache.removeCache.apply(cache)
         }
       }
     }
@@ -40,24 +41,18 @@ export default class Logout {
 
   init(): void {
     // 监听页面刷新、鼠标事件、鼠标移动、键盘事件 更新最后一次点击时间
+    const cache = this.cache
     window.onload = function () {
-      setLastTime()
+      cache.setCacheTime.apply(cache)
     }
     window.document.onmousedown = function () {
-      console.log('onmousedown')
-      setLastTime()
+      cache.setCacheTime.apply(cache)
     }
     window.document.onmouseover = function () {
-      console.log('onmouseover')
-      setLastTime()
+      cache.setCacheTime.apply(cache)
     }
     window.document.onkeydown = function () {
-      console.log('onkeydown')
-      setLastTime()
-    }
-    function setLastTime() {
-      const lastTime = new Date().getTime() + ''
-      Cookies.set(LAST_TIME, lastTime)
+      cache.setCacheTime.apply(cache)
     }
   }
 }
