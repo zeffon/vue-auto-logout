@@ -1,34 +1,70 @@
 {
   "name": "vue-auto-logout",
   "version": "0.1.0",
-  "private": true,
+  "description": "The vue project session of the permission system timed out to log out",
+  "author": "Zwffon <ZeffonWu@gmail.com>",
+  "main": "dist/vue-auto-logout.umd.js",
+  "module": "dist/vue-auto-logout.es5.js",
+  "typings": "dist/types/index.d.ts",
+  "files": [
+    "dist/*",
+    "src/*"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zeffon/vue-auto-logout.git"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "keywords": [
+    "vue",
+    "logout"
+  ],
   "scripts": {
+    "dev": "webpack-dev-server --config example/webpack.config.js --host 127.0.0.1",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build": "tsc --module commonjs && rollup -c rollup.config.ts",
+    "lint": "vue-cli-service lint",
+    "start": "rollup -c rollup.config.ts -w",
+    "pub": "sh release.sh"
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^3.0.0"
+    "js-cookie": "^3.0.0",
+    "vue": "^3.1.4"
   },
   "devDependencies": {
+    "@types/js-cookie": "^2.2.7",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-typescript": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/compiler-sfc": "^3.2.2",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.0.0",
     "lint-staged": "^9.5.0",
+    "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.12.0",
     "prettier": "^2.2.1",
+    "rollup": "^2.1.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-sourcemaps": "^0.5.0",
+    "rollup-plugin-typescript2": "^0.26.0",
+    "lodash.camelcase": "^4.3.0",
     "sass-loader": "^8.0.2",
-    "typescript": "~4.1.5"
+    "typescript": "~4.1.5",
+    "vue-loader": "^16.0.0-rc.1",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
