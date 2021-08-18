@@ -6,7 +6,7 @@ export default class Logout {
   enable: boolean
   stagnateTime: number
   detectTime: number
-  cache: any
+  cache: Cache
 
   constructor(options: LogoutOptions) {
     this.keyName = options.keyName || 'token'

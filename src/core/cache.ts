@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
 import { CacheType } from '@/types'
+import { clearCookies } from '../helpers'
 
 const LAST_TIME = 'logout_last_time'
 
@@ -46,12 +47,11 @@ export default class Cache {
         sessionStorage.removeItem(keyName)
     }
     if (clearAll) {
-      this.clearCookies()
+      clearCookies()
       localStorage.clear()
       sessionStorage.clear()
     }
-    const { origin } = window.location
-    window.location.href = origin
+    location.reload()
   }
 
   private init(): void {
@@ -70,16 +70,6 @@ export default class Cache {
     if (token !== null) {
       this.type = 'SessionStorage'
       this.LoginStatus = true
-    }
-  }
-
-  private clearCookies(): void {
-    const cookies = document.cookie.split(';')
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i]
-      const eqPos = cookie.indexOf('=')
-      const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie
-      document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT'
     }
   }
 }
