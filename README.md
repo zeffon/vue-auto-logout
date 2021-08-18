@@ -1,15 +1,19 @@
 English | [简体中文](./README.zh-CN.md)
 
-# vue-auto-logout
+# vue-auto-logout [![NPM version](https://img.shields.io/npm/v/vue-auto-logout.svg?style=flat)](https://npmjs.org/package/vue-auto-logout)
 
 ## Project
 
-The `vue` project with login function will be automatically logged out of the system if it has not been operated for a long time.
+The `vue` project with login function will be automatically logged out of the system if it has not been operated for a long time.The conditions are as follows:
+
+1. The `Vue` project of the `Web on the PC side`
+2. The system has a permission mechanism related to the `login function`
+3. The login identifiers such as `token` are stored in the `browser arbitrary cache`
 
 ## Install
 
 ```bash
-$ npm install vue-auto-logout -S
+$ npm install vue-auto-logout
 or
 $ yarn add vue-auto-logout -S
 ```
@@ -38,5 +42,6 @@ app.mount('#app')
 | :-- | --- | --- | --- |
 | `enable` | Turn on automatic logout | `true` | `Boolean` |
 | `keyName` | The `key` name of the `token` in the cache | `token` | `String` |
+| `clearAll` | Whether to clear all cached values ​​under this site | `true` | `Boolean` |
 | `stagnateTime` | No operation dead time | `30min` | `Number` |
 | `detectTime` | How many seconds to check whether to log out | `10s` | `Number` |
