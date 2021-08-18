@@ -7,11 +7,13 @@ export default class Cache {
   type: CacheType
   LoginStatus: boolean
   keyName: string
+  clearAll: boolean
 
-  constructor(keyName: string) {
+  constructor(keyName: string, clearAll = true) {
     this.keyName = keyName
     this.type = 'Cookie'
     this.LoginStatus = false
+    this.clearAll = clearAll
     this.init()
   }
 
@@ -31,14 +33,21 @@ export default class Cache {
 
   removeCache(): void {
     const keyName = this.keyName
-    if (this.type === 'Cookie') {
-      Cookies.remove(keyName)
+    const clearAll = this.clearAll
+    const type = this.type
+    switch (type) {
+      case 'Cookie':
+        Cookies.remove(keyName)
+        break
+      case 'LocalStorage':
+        localStorage.removeItem(keyName)
+        break
+      case 'SessionStorage':
+        sessionStorage.removeItem(keyName)
     }
-    if (this.type === 'LocalStorage') {
-      localStorage.removeItem(keyName)
-    }
-    if (this.type === 'SessionStorage') {
-      sessionStorage.removeItem(keyName)
+    if (clearAll) {
+      localStorage.clear()
+      sessionStorage.clear()
     }
     const { origin } = window.location
     window.location.href = origin

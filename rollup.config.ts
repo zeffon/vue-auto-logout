@@ -1,10 +1,3 @@
-/*
- * @Description:
- * @Author: Zeffon
- * @Date: 2021-08-16 15:22:27
- * @LastEditors: Zeffon
- * @LastEditTime: 2021-08-17 10:42:17
- */
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import sourceMaps from 'rollup-plugin-sourcemaps'

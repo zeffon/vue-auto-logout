@@ -6,7 +6,6 @@ export default class Logout {
   enable: boolean
   stagnateTime: number
   detectTime: number
-  clearAll: boolean
   cache: any
 
   constructor(options: LogoutOptions) {
@@ -14,8 +13,7 @@ export default class Logout {
     this.enable = options.enable || true
     this.stagnateTime = options.stagnateTime || 30 * 60 * 1000
     this.detectTime = options.detectTime || 10 * 1000
-    this.clearAll = options.clearAll || true
-    this.cache = new Cache(this.keyName)
+    this.cache = new Cache(this.keyName, options.clearAll)
     this.init()
   }
 
