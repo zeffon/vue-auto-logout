@@ -14,6 +14,9 @@
       当前<span style="color: red">未登录</span>
       <button @click="login">请登录</button>
     </div>
+    <div>
+      <button @click="randomSetCache">随机设置缓存值</button>
+    </div>
   </div>
 </template>
 
@@ -40,15 +43,16 @@ export default defineComponent({
 
     function login() {
       isLogin.value = true
-      set(selectType.value)
+      setCache()
     }
 
     function logout() {
       isLogin.value = false
-      remove(selectType.value)
+      removeCache()
     }
 
-    function set(type: string) {
+    function setCache() {
+      const type = selectType.value
       if (type === CacheTypes[0]) {
         Cookies.set(tokenKey, 'Von38vetN9YGeYKtjrMsSb89')
       }
@@ -60,7 +64,8 @@ export default defineComponent({
       }
     }
 
-    function remove(type: string) {
+    function removeCache() {
+      const type = selectType.value
       if (type === CacheTypes[0]) {
         Cookies.remove(tokenKey)
       }
@@ -72,12 +77,35 @@ export default defineComponent({
       }
     }
 
+    function randomSetCache() {
+      const type = selectType.value
+      const str = randomString(6)
+      if (type === CacheTypes[0]) {
+        Cookies.set(str, str)
+      }
+      if (type === CacheTypes[1]) {
+        localStorage.setItem(str, str)
+      }
+      if (type === CacheTypes[2]) {
+        sessionStorage.setItem(str, str)
+      }
+    }
+
+    function randomString(length: number) {
+      var str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+      var result = ''
+      for (var i = length; i > 0; --i)
+        result += str[Math.floor(Math.random() * str.length)]
+      return result
+    }
+
     return {
       isLogin,
       login,
       logout,
       selectType,
-      CacheTypes
+      CacheTypes,
+      randomSetCache
     }
   }
 })
