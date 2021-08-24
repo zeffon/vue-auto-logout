@@ -24,12 +24,12 @@ export default class Cache {
   }
 
   getCacheTime(): number {
-    return Number(Cookies.get(LAST_TIME))
+    return Number(window.localStorage.getItem(LAST_TIME))
   }
 
   setCacheTime(): void {
     const lastTime = new Date().getTime() + ''
-    Cookies.set(LAST_TIME, lastTime)
+    window.localStorage.setItem(LAST_TIME, lastTime)
   }
 
   removeCache(): void {
