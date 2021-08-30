@@ -2,7 +2,7 @@
   "name": "vue-auto-logout",
   "version": "1.0.1",
   "description": "The vue project session of the permission system timed out to log out",
-  "author": "Zwffon <ZeffonWu@gmail.com>",
+  "author": "Zeffon <ZeffonWu@gmail.com>",
   "main": "dist/vue-auto-logout.umd.js",
   "module": "dist/vue-auto-logout.es5.js",
   "typings": "dist/types/index.d.ts",
