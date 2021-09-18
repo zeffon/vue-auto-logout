@@ -2,6 +2,7 @@ import { LogoutOptions } from '../types'
 import Cache from './cache'
 
 export default class Logout {
+  type: string
   keyName: string
   enable: boolean
   stagnateTime: number
@@ -9,6 +10,7 @@ export default class Logout {
   cache: Cache
 
   constructor(options: LogoutOptions) {
+    this.type = options.type || 'cache'
     this.keyName = options.keyName || 'token'
     this.enable = options.enable || true
     this.stagnateTime = options.stagnateTime || 30 * 60 * 1000

@@ -1,4 +1,5 @@
 export interface LogoutOptions {
+  type?: string
   enable?: boolean
   keyName?: string
   stagnateTime?: number
